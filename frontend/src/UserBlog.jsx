@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaThumbsUp, FaRegComment } from "react-icons/fa";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://blogging-website-backend-eight.vercel.app/api";
 
 const UserBlog = () => {
   const { id } = useParams();
@@ -93,7 +93,7 @@ const UserBlog = () => {
       {/* Blog Image */}
       <div className="mt-4">
         <img
-          src={`http://localhost:5000/uploads/${post.image}` || "https://via.placeholder.com/800x400?text=No+Image+Available"}
+          src={`https://blogging-website-backend-eight.vercel.app/uploads/${post.image}` || "https://via.placeholder.com/800x400?text=No+Image+Available"}
           alt="Blog Cover"
           className="w-full h-80 object-cover rounded-lg shadow-md"
         />

@@ -25,7 +25,7 @@ const EditPostForm = () => {
       setError(null);
 
       try {
-        const res = await fetch(`http://localhost:5000/api/posts/${id}`);
+        const res = await fetch(`https://blogging-website-backend-eight.vercel.app/api/posts/${id}`);
         if (!res.ok) throw new Error("Failed to fetch post");
 
         const data = await res.json();
@@ -36,7 +36,7 @@ const EditPostForm = () => {
           content: data.content,
           category: data.category || "",
         });
-        setPreview(`http://localhost:5000/uploads/${data.image}`);
+        setPreview(`https://blogging-website-backend-eight.vercel.app/uploads/${data.image}`);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -74,7 +74,7 @@ const EditPostForm = () => {
     if (image) formDataObj.append("image", image);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+      const res = await fetch(`https://blogging-website-backend-eight.vercel.app/api/posts/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -98,7 +98,7 @@ const EditPostForm = () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+      const res = await fetch(`https://blogging-website-backend-eight.vercel.app/api/posts/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

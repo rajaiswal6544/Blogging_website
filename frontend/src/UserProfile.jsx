@@ -17,7 +17,7 @@ const UserProfile = () => {
       }
 
       try {
-        const response = await fetch("http://localhost:5000/api/users/profile", {
+        const response = await fetch("https://blogging-website-backend-eight.vercel.app/api/users/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
@@ -42,7 +42,7 @@ const UserProfile = () => {
   const handleSave = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/profile/${user._id}`, {
+      const response = await fetch(`https://blogging-website-backend-eight.vercel.app/api/auth/profile/${user._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const UserProfile = () => {
             <div key={post._id} className="bg-white shadow-lg rounded-lg overflow-hidden relative">
               {/* Post Image */}
               <img
-                src={`http://localhost:5000/uploads/${post.image}`}
+                src={`https://blogging-website-backend-eight.vercel.app/uploads/${post.image}`}
                 alt={post.title}
                 className="w-full h-64 object-cover rounded-lg"
               />
