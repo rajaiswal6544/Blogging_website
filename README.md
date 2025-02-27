@@ -42,8 +42,8 @@ npm install
 Create a `.env` file in the backend directory and add:
 ```env
 PORT=5000
-MONGO_URI=mongodb+srv://cse2021047:KVHOdgQyjOo6PilJ@cluster0.xy76o.mongodb.net/Blog_users
-JWT_SECRET=R@j76
+MONGO_URI=your link
+JWT_SECRET=your secret
 UPLOADS_DIR=./uploads
 ```
 Run the backend server:
@@ -60,11 +60,7 @@ Run the frontend server:
 ```sh
 npm start
 ```
-### 4 Login Setup(Testing the Web App)
-```sh
-email:rajaiswal6@gmail.com
-password:1234
-```
+
 
 
 ---
