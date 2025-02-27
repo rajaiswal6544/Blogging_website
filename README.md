@@ -60,6 +60,12 @@ Run the frontend server:
 ```sh
 npm start
 ```
+### 4 Login Setup(Testing the Web App)
+```sh
+email:rajaiswal6@gmail.com
+password:1234
+```
+
 
 ---
 
