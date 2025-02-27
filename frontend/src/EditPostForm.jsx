@@ -10,9 +10,9 @@ const EditPostForm = () => {
     title: "",
     content: "",
     category: "",
+    image: null,
   });
 
-  const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -35,8 +35,9 @@ const EditPostForm = () => {
           title: data.title,
           content: data.content,
           category: data.category || "",
+          image: data.image || null,
         });
-        setPreview(`https://blogging-website-backend-eight.vercel.app/uploads/${data.image}`);
+        setPreview(data.image ? `https://blogging-website-backend-eight.vercel.app/uploads/${data.image}` : null);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -54,7 +55,7 @@ const EditPostForm = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(file);
+      setFormData((prev) => ({ ...prev, image: file }));
       setPreview(URL.createObjectURL(file));
     }
   };
@@ -71,10 +72,10 @@ const EditPostForm = () => {
     formDataObj.append("title", formData.title);
     formDataObj.append("content", formData.content);
     formDataObj.append("category", formData.category);
-    if (image) formDataObj.append("image", image);
+    if (formData.image) formDataObj.append("image", formData.image);
 
     try {
-      const res = await fetch(`https://blogging-website-backend-eight.vercel.app/api/posts/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

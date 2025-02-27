@@ -15,7 +15,7 @@ connectDB();
 const app = express();
 app.use(
     cors({
-      origin: "*",
+      origin:["http://localhost:3000", "https://blogging-website-frontend-two.vercel.app/"],
       methods: ["GET", "POST", "PUT", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true, // Allow cookies if needed

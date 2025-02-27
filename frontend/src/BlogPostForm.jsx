@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaUpload } from "react-icons/fa";
@@ -10,7 +10,14 @@ const BlogPostForm = () => {
     image: null,
   });
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is authenticated (token exists)
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,6 +33,9 @@ const BlogPostForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!isAuthenticated) return; // Prevent form submission if not logged in
+
     const formDataToSend = new FormData();
     formDataToSend.append("title", formData.title);
     formDataToSend.append("content", formData.content);
@@ -33,10 +43,6 @@ const BlogPostForm = () => {
     if (formData.image) formDataToSend.append("image", formData.image);
 
     const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Unauthorized: Please log in first.");
-      return;
-    }
 
     try {
       const response = await fetch("https://blogging-website-backend-eight.vercel.app/api/posts", {
@@ -69,6 +75,14 @@ const BlogPostForm = () => {
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">
           ✍️ Create Your Blog Post
         </h2>
+
+        {/* Red Warning Message if Not Signed In */}
+        {!isAuthenticated && (
+          <p className="text-red-600 text-center font-semibold">
+            ❌ You must be signed in to post a blog.
+          </p>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Category Dropdown */}
           <div className="relative">
@@ -134,7 +148,12 @@ const BlogPostForm = () => {
             type="submit"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition"
+            className={`w-full py-3 rounded-lg transition ${
+              isAuthenticated
+                ? "bg-green-500 text-white hover:bg-green-600"
+                : "bg-gray-400 text-gray-700 cursor-not-allowed"
+            }`}
+            disabled={!isAuthenticated} // Disable button if not logged in
           >
             🚀 Publish Post
           </motion.button>
