@@ -16,7 +16,7 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-  origin: "https://blogging-website-frontend-two.vercel.app",
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

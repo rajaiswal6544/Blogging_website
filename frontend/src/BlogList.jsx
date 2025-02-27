@@ -16,8 +16,8 @@ const BlogList = () => {
       setError(null);
       const url =
         selectedCategory && selectedCategory !== "All"
-          ? `https://blogging-website-backend-eight.vercel.app/api/posts/filter?category=${selectedCategory}`
-          : "https://blogging-website-backend-eight.vercel.app/api/posts";
+          ? `http://localhost:5000/api/posts/filter?category=${selectedCategory}`
+          : "http://localhost:5000/api/posts";
 
       try {
         const res = await fetch(url);
@@ -75,7 +75,7 @@ const BlogList = () => {
             >
               <div className="relative">
                 <img
-                  src={`https://blogging-website-backend-eight.vercel.app/uploads/${blog.image}`}
+                  src={`http://localhost:5000/uploads/${blog.image}`}
                   alt={blog.title}
                   className="w-full h-64 object-cover rounded-lg"
                 />

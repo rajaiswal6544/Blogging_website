@@ -1,11 +1,11 @@
 const express = require('express');
-const { createPost, getAllPosts, getPostById, updatePost, deletePost,getPostsByCategory } = require('../controllers/postController');
+const { createPost, getAllPosts, getPostById, updatePost, deletePost, getPostsByCategory } = require('../controllers/postController');
 const authMiddleware = require('../middleware/authMiddleware');
-const upload = require('../middleware/uploadMiddleware');
+const upload = require('../middleware/uploadMiddleware'); // If using Multer in memory mode
 
 const router = express.Router();
 
-router.post('/', authMiddleware, upload.single('image'), createPost);
+router.post('/', authMiddleware, upload.single('image'), createPost); // Upload handled via Cloudinary
 router.get('/', getAllPosts);
 router.get('/filter', getPostsByCategory);
 router.get('/:id', getPostById);

@@ -10,9 +10,9 @@ const EditPostForm = () => {
     title: "",
     content: "",
     category: "",
-    image: null,
   });
 
+  const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -25,7 +25,7 @@ const EditPostForm = () => {
       setError(null);
 
       try {
-        const res = await fetch(`https://blogging-website-backend-eight.vercel.app/api/posts/${id}`);
+        const res = await fetch(`http://localhost:5000/api/posts/${id}`);
         if (!res.ok) throw new Error("Failed to fetch post");
 
         const data = await res.json();
@@ -35,9 +35,8 @@ const EditPostForm = () => {
           title: data.title,
           content: data.content,
           category: data.category || "",
-          image: data.image || null,
         });
-        setPreview(data.image ? `https://blogging-website-backend-eight.vercel.app/uploads/${data.image}` : null);
+        setPreview(`http://localhost:5000/uploads/${data.image}`);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -55,7 +54,7 @@ const EditPostForm = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData((prev) => ({ ...prev, image: file }));
+      setImage(file);
       setPreview(URL.createObjectURL(file));
     }
   };
@@ -72,10 +71,10 @@ const EditPostForm = () => {
     formDataObj.append("title", formData.title);
     formDataObj.append("content", formData.content);
     formDataObj.append("category", formData.category);
-    if (formData.image) formDataObj.append("image", formData.image);
+    if (image) formDataObj.append("image", image);
 
     try {
-      const res = await fetch(`https://blogging-website-backend-eight.vercel.app/api/posts/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -99,7 +98,7 @@ const EditPostForm = () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
 
     try {
-      const res = await fetch(`https://blogging-website-backend-eight.vercel.app/api/posts/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

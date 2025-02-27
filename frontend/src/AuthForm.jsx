@@ -17,8 +17,8 @@ const AuthForm = ({ isSignup }) => {
     setError("");
     try {
       const url = isSignup
-        ? "https://blogging-website-backend-eight.vercel.app/api/auth/register"
-        : "https://blogging-website-backend-eight.vercel.app/api/auth/login";
+        ? "http://localhost:5000/api/auth/register"
+        : "http://localhost:5000/api/auth/login";
       const response = await axios.post(url, formData);
       console.log("Response:", response.data);
       if (!isSignup) {

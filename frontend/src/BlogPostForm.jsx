@@ -39,7 +39,7 @@ const BlogPostForm = () => {
     }
 
     try {
-      const response = await fetch("https://blogging-website-backend-eight.vercel.app/api/posts", {
+      const response = await fetch("http://localhost:5000/api/posts", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
