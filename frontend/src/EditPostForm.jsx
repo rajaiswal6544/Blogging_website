@@ -75,7 +75,7 @@ const EditPostForm = () => {
     if (formData.image) formDataObj.append("image", formData.image);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+      const res = await fetch(`https://blogging-website-backend-eight.vercel.app/api/posts/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

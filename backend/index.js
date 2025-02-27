@@ -15,12 +15,14 @@ connectDB();
 const app = express();
 app.use(
     cors({
-      origin:["http://localhost:3000", "https://blogging-website-frontend-two.vercel.app/"],
+      origin:"https://blogging-website-frontend-two.vercel.app",
       methods: ["GET", "POST", "PUT", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true, // Allow cookies if needed
     })
   );
+  app.options("*", cors());
+
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', authRoutes);
