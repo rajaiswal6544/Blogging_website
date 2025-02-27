@@ -5,6 +5,10 @@ const Post = require('../models/Post');
 // Create a new post
 exports.createPost = async (req, res) => {
     try {
+        console.log("Uploaded file:", req.file);
+        console.log("Request body:", req.body);
+        console.log("User ID:", req.user?.id);
+
         const { title, content, category } = req.body;
         const image = req.file ? req.file.filename : null; // Save image filename
 
@@ -23,9 +27,11 @@ exports.createPost = async (req, res) => {
         await newPost.save();
         res.status(201).json({ message: 'Post created successfully', post: newPost });
     } catch (error) {
+        console.error("Error creating post:", error);
         res.status(500).json({ message: 'Server error', error });
     }
 };
+
 
 // Get all posts (with category support)
 exports.getAllPosts = async (req, res) => {
